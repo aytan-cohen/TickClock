@@ -1,29 +1,45 @@
 import React, { Component } from 'react';
+import './App.css';
 
 class App extends Component {
-  constructor() {
-    super()
-    this.state = 
-    {
-      time: new Date()
-    }
+  render(){
+    return (
+      <div>
+        <Clock />
+      </div>
+    );
   }
-  currentTime()
+}
+
+class Clock extends Component {
+  state = {
+    time: new Date()
+  };
+
+  componentDidMount()
+  {
+    this.timerID = setInterval(() => this.tick(), 1000);
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timerID);
+  }
+
+  tick()
   {
     this.setState({
       time: new Date()
-    })
+    });
   }
-  componentWillMount()
-  {
-    setInterval(() => this.currentTime, 1000);
-  }
+
   render(){
     return (
-    <h1>
-      The time is: {this.state.time.toLocaleTimeString()}
-    </h1>
-    )
+    <div>
+      <h1>
+        The time is: {this.state.time.toLocaleTimeString()}
+      </h1>
+    </div>
+    );
   }
 }
 
